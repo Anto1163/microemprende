@@ -1,0 +1,100 @@
+<style>
+  .container {
+    margin-top: 50px;
+  }
+
+  .saludo {
+    text-align: center;
+  }
+
+  .resumen {
+    background-color: #f8f9fa;
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  @media (min-width: 768px) {
+    .saludo {
+      margin-bottom: 50px;
+    }
+
+    .resumen {
+      border-radius: 10px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .resumen li {
+      font-size: 1.2rem;
+    }
+
+    .col-md-6 {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+  }
+
+  .contenedor {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .elemento {
+    width: 30%;
+    /*ancho deseado del elemento*/
+    max-width: 300px;
+    /*ancho máximo para pantallas grandes*/
+    min-width: 200px;
+    text-align: center;
+  }
+  section{
+    min-height: 350px;
+  }
+  .col-md-12 {
+  text-align: center; /*opcional, para centrar horizontalmente el contenido*/
+  }
+</style>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Bienvenido, {{user.cliente.nombre}} {{user.cliente.apellido}}!</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <section class="resumen">
+        <div id="DivPrestamos" *ngIf="hayPrestamos; else noHayPrestamos">
+          <h4>Resumen del último préstamo:</h4>
+          <p>Total del prestamo: {{prestamos.prestamos[0].monto_prestamo}}</p>
+          <div class="contenedor">
+            <div class="elemento">
+              <canvas baseChart class="chart" [data]="doughnutChartData" [type]="doughnutChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-sm-6">
+      <section class="resumen">
+          <h4>Evaluacion crediticia:</h4>
+          
+          <p>Si estás buscando financiamiento para tu negocio, una evaluación crediticia podría ser una excelente opción para ti.</p>
+          <div class="contenedor">
+              <p>Inicia tu evaluacion <a routerLink="/evaluacion-crediticia">crediticia aquí.</a></p>
+          </div>
+        
+      </section>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #noHayPrestamos>
+  <p>No se encontraron préstamos registrados</p>
+</ng-template>

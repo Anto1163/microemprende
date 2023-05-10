@@ -1,0 +1,29 @@
+
+<h1>Perfil del cliente</h1>
+<p>Nombre: {{ user.cliente.nombre }}</p>
+<p>Apellido: {{ user.cliente.apellido }}</p>
+<p>DNI: {{ user.cliente.dni }}</p>
+<p>Dirección: {{ user.cliente.direccion }}</p>
+<p>Teléfono: {{ user.cliente.telefono }}</p>
+<p>Email: {{ user.cliente.email }}</p>
+<p>Username: {{ user.cliente.username }}</p>
+
+<button (click)="editarCliente()">Editar datos</button>
+
+<div *ngIf="editing">
+    <h2>Editar perfil</h2>
+    <label>Nombre:</label>
+    <input type="text" [(ngModel)]="user.cliente.nombre"><br>
+    <label>Apellido:</label>
+    <input type="text" [(ngModel)]="user.cliente.apellido"><br>
+    <label>DNI:</label>
+    <input type="text" [(ngModel)]="user.cliente.dni"><br>
+    <label>Dirección:</label>
+    <input type="text" [(ngModel)]="user.cliente.direccion"><br>
+    <label>Teléfono:</label>
+    <input type="text" [(ngModel)]="user.cliente.telefono"><br>
+    <label>Email:</label>
+    <input type="text" [(ngModel)]="user.cliente.email"><br>
+    <button (click)="onSave()">Guardar cambios</button>
+    <button (click)="onCancel()">Cancelar</button>
+</div>

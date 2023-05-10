@@ -84,6 +84,16 @@ export class AuthService {
   }
 
   modificarCliente(cliente: Cliente){
-    
+    const url = `${this.baseUrl}/modificarcliente`;
+    return this.http.post(url, cliente).toPromise().then(
+      (response: any) => {
+        console.log(response);
+        return response;
+      },
+      (error: any) => {
+        console.error('Error de registro', error);
+        return error;
+      }
+    )
   }
 }

@@ -1,1 +1,190 @@
-<p>evaluacion-crediticia works!</p>
+<style>
+  .rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rating-stars {
+    font-size: 30px;
+    /* Ajusta el tamaño de las estrellas según tus necesidades */
+  }
+
+  .rating-stars .star i {
+    color: #ccc;
+    /* Color de las estrellas vacías */
+    cursor: pointer;
+  }
+
+  .rating-stars .star i.filled {
+    color: rgb(220, 172, 39);
+    /* Color de las estrellas llenas */
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center align-items-center vh-100">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h1>{{ "Evaluacion:" | translate }}</h1>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="infoClienteForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="sector_trabajo">{{
+                "Sector de Trabajo:" | translate
+              }}</label>
+              <select
+                id="sector_trabajo"
+                class="form-control"
+                formControlName="sector_trabajo"
+              >
+                <option
+                  *ngFor="let sector of sectorTrabajoOptions"
+                  [value]="sector"
+                >
+                  {{ sector }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  infoClienteForm.get('sector_trabajo')?.invalid &&
+                  (infoClienteForm.get('sector_trabajo')?.dirty ||
+                    infoClienteForm.get('sector_trabajo')?.touched)
+                "
+                class="text-danger"
+              >
+                {{ "Sector de Trabajo es requerido." | translate }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="tipo_periodo">{{
+                "Tipo de Periodo:" | translate
+              }}</label>
+              <select
+                id="tipo_periodo"
+                class="form-control"
+                formControlName="tipo_periodo"
+              >
+                <option
+                  *ngFor="let periodo of tipoPeriodoOptions"
+                  [value]="periodo"
+                >
+                  {{ periodo }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  infoClienteForm.get('tipo_periodo')?.invalid &&
+                  (infoClienteForm.get('tipo_periodo')?.dirty ||
+                    infoClienteForm.get('tipo_periodo')?.touched)
+                "
+                class="text-danger"
+              >
+                {{ "Tipo de Periodo es requerido." | translate }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="pago_disponible">{{
+                "Pago Disponible:" | translate
+              }}</label>
+              <input
+                id="pago_disponible"
+                type="text"
+                class="form-control"
+                formControlName="pago_disponible"
+              />
+              <div
+                *ngIf="
+                  infoClienteForm.get('pago_disponible')?.invalid &&
+                  (infoClienteForm.get('pago_disponible')?.dirty ||
+                    infoClienteForm.get('pago_disponible')?.touched)
+                "
+                class="text-danger"
+              >
+                {{
+                  "Pago Disponible es requerido y debe ser un número."
+                    | translate
+                }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="ingresos">{{ "Ingresos:" | translate }}</label>
+              <input
+                id="ingresos"
+                type="text"
+                class="form-control"
+                formControlName="ingresos"
+              />
+              <div
+                *ngIf="
+                  infoClienteForm.get('ingresos')?.invalid &&
+                  (infoClienteForm.get('ingresos')?.dirty ||
+                    infoClienteForm.get('ingresos')?.touched)
+                "
+                class="text-danger"
+              >
+                {{ "Ingresos es requerido y debe ser un número." | translate }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="monto_prestamo">{{
+                "Monto de préstamo a solicitar:" | translate
+              }}</label>
+              <input
+                id="monto_prestamo"
+                type="text"
+                class="form-control"
+                formControlName="monto_prestamo"
+              />
+              <div
+                *ngIf="
+                  infoClienteForm.get('monto_prestamo')?.invalid &&
+                  (infoClienteForm.get('monto_prestamo')?.dirty ||
+                    infoClienteForm.get('monto_prestamo')?.touched)
+                "
+                class="text-danger"
+              >
+                {{
+                  "Monto de préstamo es requerido y debe ser un número."
+                    | translate
+                }}
+              </div>
+            </div>
+
+            <div class="form-group text-center">
+              <label
+                ><b>{{ "Valorar" | translate }}:</b></label
+              >
+              <div>
+                {{
+                  "Queremos saber tu experiencia con este formulario."
+                    | translate
+                }}
+              </div>
+              <div class="rating-container">
+                <div class="rating-stars">
+                  <span
+                    class="star"
+                    *ngFor="let _ of [1, 2, 3, 4, 5]"
+                    (click)="setRating(_)"
+                  >
+                    <i
+                      class="fa fa-star"
+                      [ngClass]="{ filled: rating >= _, empty: rating < _ }"
+                    ></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              {{ "Enviar" | translate }}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,29 +1,100 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h1>{{ "perfil_cliente" | translate }}</h1>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>{{ "nombre" | translate }}:</strong>
+            {{ user.cliente.nombre }}
+          </p>
+          <p>
+            <strong>{{ "apellido" | translate }}:</strong>
+            {{ user.cliente.apellido }}
+          </p>
+          <p>
+            <strong>{{ "dni" | translate }}:</strong> {{ user.cliente.dni }}
+          </p>
+          <p>
+            <strong>{{ "direccion" | translate }}:</strong>
+            {{ user.cliente.direccion }}
+          </p>
+          <p>
+            <strong>{{ "telefono" | translate }}:</strong>
+            {{ user.cliente.telefono }}
+          </p>
+          <p>
+            <strong>{{ "email" | translate }}:</strong> {{ user.cliente.email }}
+          </p>
+          <p>
+            <strong>{{ "nombre_usuario" | translate }}:</strong>
+            {{ user.cliente.username }}
+          </p>
+        </div>
+        <div class="card-footer text-right">
+          <button class="btn btn-primary" (click)="editarCliente()">
+            {{ "editar_perfil" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
 
-<h1>Perfil del cliente</h1>
-<p>Nombre: {{ user.cliente.nombre }}</p>
-<p>Apellido: {{ user.cliente.apellido }}</p>
-<p>DNI: {{ user.cliente.dni }}</p>
-<p>Dirección: {{ user.cliente.direccion }}</p>
-<p>Teléfono: {{ user.cliente.telefono }}</p>
-<p>Email: {{ user.cliente.email }}</p>
-<p>Username: {{ user.cliente.username }}</p>
-
-<button (click)="editarCliente()">Editar datos</button>
-
-<div *ngIf="editing">
-    <h2>Editar perfil</h2>
-    <label>Nombre:</label>
-    <input type="text" [(ngModel)]="user.cliente.nombre"><br>
-    <label>Apellido:</label>
-    <input type="text" [(ngModel)]="user.cliente.apellido"><br>
-    <label>DNI:</label>
-    <input type="text" [(ngModel)]="user.cliente.dni"><br>
-    <label>Dirección:</label>
-    <input type="text" [(ngModel)]="user.cliente.direccion"><br>
-    <label>Teléfono:</label>
-    <input type="text" [(ngModel)]="user.cliente.telefono"><br>
-    <label>Email:</label>
-    <input type="text" [(ngModel)]="user.cliente.email"><br>
-    <button (click)="onSave()">Guardar cambios</button>
-    <button (click)="onCancel()">Cancelar</button>
+    <div *ngIf="editing" class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-header">
+          <h2>{{ "editar_perfil" | translate }}</h2>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editacliente">
+            <label>{{ "nombre" | translate }}:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="nombre"
+            /><br />
+            <label>{{ "apellido" | translate }}:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="apellido"
+            /><br />
+            <label>{{ "direccion" | translate }}:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="direccion"
+            /><br />
+            <label>{{ "telefono" | translate }}:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="telefono"
+            /><br />
+            <label>{{ "email" | translate }}:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="email"
+            /><br />
+            <label>{{ "contraseña" | translate }}:</label>
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password"
+            /><br />
+          </form>
+        </div>
+        <div class="card-footer text-right">
+          <button class="btn btn-success" (click)="onSave()">
+            {{ "guardar" | translate }}
+          </button>
+          <button class="btn btn-secondary" (click)="onCancel()">
+            {{ "cancelar" | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

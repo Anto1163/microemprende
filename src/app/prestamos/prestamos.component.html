@@ -1,1 +1,96 @@
-<p>prestamos works!</p>
+<style>
+  .card {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .contenedor {
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+  }
+
+  .col-md-12 {
+    text-align: center;
+    /*opcional, para centrar horizontalmente el contenido*/
+  }
+  .rating-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rating-stars {
+    font-size: 30px;
+    /* Ajusta el tamaño de las estrellas según tus necesidades */
+  }
+
+  .rating-stars .star i {
+    color: #ccc;
+    /* Color de las estrellas vacías */
+    cursor: pointer;
+  }
+
+  .rating-stars .star i.filled {
+    color: rgb(220, 172, 39);
+    /* Color de las estrellas llenas */
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{ 'prestamos' | translate }}:</h1>
+    </div>
+  </div>
+<hr>
+  <div class="form-group text-center">
+    <label><b>{{"Valorar" | translate}}:</b></label>
+    <div>
+      {{ "Queremos saber tu experiencia con este menú." | translate}}</div>
+    <div class="rating-container">
+      <div class="rating-stars">
+        <span class="star" *ngFor="let _ of [1, 2, 3, 4, 5]" (click)="setRating(_)">
+          <i class="fa fa-star" [ngClass]="{'filled': rating >= _, 'empty': rating < _}"></i>
+        </span>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="submitRating()">{{"Enviar"|translate}}</button>
+  </div>
+<hr>
+  <div class="row">
+    <div class="col-md-6" *ngFor="let prestamos of prestamos.prestamos">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="card-title">{{ prestamos.fecha_prestamo | date: 'dd/MM/yyyy' }}</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ 'monto_prestamo' | translate }}: {{ prestamos.monto_prestamo }}</p>
+          <p class="card-text">{{ 'tasa_interes' | translate }}: {{ prestamos.tasa_interes }}</p>
+          <p class="card-text">{{ 'fechavencimiento_prestamo' | translate }}: {{ prestamos.fecha_vencimiento | date: 'dd/MM/yyyy' }}</p>
+          <p class="card-text">{{ 'tipo_pago' | translate }}: {{ prestamos.tipo_pago }}</p>
+          <button class="btn btn-primary" (click)="mostrarDetalles(prestamos)">Ver detalles</button>
+          <table class="table mt-3" *ngIf="prestamos.mostrarDetalles">
+            <thead>
+              <tr>
+                <th>Número de cuota</th>
+                <th>Fecha de vencimiento</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cuota of prestamos.cuotas">
+                <td>{{ cuota.numero }}</td>
+                <td>{{ cuota.fecha | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ cuota.estado }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

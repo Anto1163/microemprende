@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">MicroemprendeApp</string>
+    <string name="title_activity_main">MicroemprendeApp</string>
+    <string name="package_name">com.microemprende.MEapp</string>
+    <string name="custom_url_scheme">com.microemprende.MEapp</string>
+</resources>

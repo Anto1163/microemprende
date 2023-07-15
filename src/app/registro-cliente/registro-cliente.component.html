@@ -1,82 +1,220 @@
 <style>
   .card {
-      max-width: 400px;
-      margin: auto;
+    max-width: 400px;
+    margin: auto;
   }
 
   .container-registro {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      /* opcional para ajustar la altura del contenedor al 100% de la altura de la ventana */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* opcional para ajustar la altura del contenedor al 100% de la altura de la ventana */
   }
 
   .btn-separator {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   .alert {
-      color: red;
-      font-size: 14px;
-      margin-top: 5px;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
   }
-  
 </style>
 
 <div class="container-registro">
-      <div class="container-fluid h-100">
-          <div class="row align-items-center justify-content-center h-100">
-              <div class="col-md-6 col-lg-4">
-                  <div class="card">
-                      <div class="card-body">
-                          <h2 class="card-title text-center mb-4">Registrate</h2>
-                          <form [formGroup]="registroCliente" (ngSubmit)="onSubmit()">
-                              <div class="form-group">
-                                  <label for="nombre_cliente">Nombre:</label>
-                                  <input type="text" class="form-control" formControlName="nombre_cliente" placeholder="Ingrese su nombre"  [(ngModel)]="cliente.nombre_cliente">
-                                  <div *ngIf="registroCliente?.get('nombre_cliente')?.invalid && (registroCliente?.get('nombre_cliente')?.dirty || registroCliente?.get('nombre_cliente')?.touched)" class="alert alert-danger">El nombre es requerido</div>
-                              </div>
-                                <div class="form-group">
-                                  <label for="apellido_cliente">Apellido:</label>
-                                  <input type="text" class="form-control" formControlName="apellido_cliente" placeholder="Ingrese su apellido" [(ngModel)]="cliente.apellido_cliente">
-                                  <div *ngIf="registroCliente?.get('apellido_cliente')?.invalid && (registroCliente?.get('apellido_cliente')?.dirty || registroCliente?.get('apellido_cliente')?.touched)" class="alert alert-danger">El apellido es requerido</div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="dni_cliente">DNI:</label>
-                                  <input type="text" class="form-control" formControlName="dni_cliente" placeholder="Ingrese su DNI" [(ngModel)]="cliente.dni_cliente">
-                                  <div *ngIf="registroCliente?.get('dni_cliente')?.invalid && (registroCliente?.get('dni_cliente')?.dirty || registroCliente?.get('dni_cliente')?.touched)" class="alert alert-danger">El DNI es requerido</div>
-                              </div>
-                                <div class="form-group">
-                                  <label for="direccion_cliente">Dirección:</label>
-                                  <input type="text" class="form-control" formControlName="direccion_cliente" placeholder="Ingrese su dirección" [(ngModel)]="cliente.direccion_cliente">
-                                  <div *ngIf="registroCliente?.get('direccion_cliente')?.invalid && (registroCliente?.get('direccion_cliente')?.dirty || registroCliente?.get('direccion_cliente')?.touched)" class="alert alert-danger">La dirección es requerida</div>
-                              </div>
-                                <div class="form-group">
-                                  <label for="telefono_cliente">Teléfono:</label>
-                                  <input type="text" class="form-control" formControlName="telefono_cliente" placeholder="Ingrese su teléfono" [(ngModel)]="cliente.telefono_cliente">
-                                  <div *ngIf="registroCliente?.get('telefono_cliente')?.invalid && (registroCliente?.get('telefono_cliente')?.dirty || registroCliente?.get('telefono_cliente')?.touched)" class="alert alert-danger">El teléfono es requerido</div>
-                              </div>
-                                <div class="form-group">
-                                  <label for="email_cliente">Email:</label>
-                                  <input type="email" class="form-control" formControlName="email_cliente" placeholder="Ingrese su email" [(ngModel)]="cliente.email_cliente">
-                                  <div *ngIf="registroCliente?.get('email_cliente')?.invalid && (registroCliente?.get('email_cliente')?.dirty || registroCliente?.get('email_cliente')?.touched)" class="alert alert-danger">El email es requerido y debe ser válido</div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="username">Nombre de usuario:</label>
-                                  <input type="text" class="form-control" formControlName="username" placeholder="Ingrese su nombre de usuario" [(ngModel)]="cliente.username">
-                                  <div *ngIf="registroCliente?.get('username')?.invalid && (registroCliente?.get('username')?.dirty || registroCliente?.get('username')?.touched)" class="alert alert-danger">El nombre de usuario es requerido</div>
-                                </div>
-                                <div class="form-group">
-                                  <label for="username">Contraseña:</label>
-                                  <input type="text" class="form-control" formControlName="password" placeholder="Ingrese su contraseña" [(ngModel)]="cliente.password">
-                                  <div *ngIf="registroCliente?.get('password')?.invalid && (registroCliente?.get('password')?.dirty || registroCliente?.get('password')?.touched)" class="alert alert-danger">La contraseña es requerida</div>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-separator" [disabled]="!formularioValido">Registrar</button>
-                              </form>
-                      </div>
-                  </div>
+  <div class="container-fluid h-100">
+    <div class="row align-items-center justify-content-center h-100">
+      <div class="col-md-6 col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title text-center mb-4">
+              {{ "registrate" | translate }}
+            </h2>
+            <form [formGroup]="registroCliente" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="nombre_cliente">{{ "nombre" | translate }}:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="nombre_cliente"
+                  placeholder="{{ 'nombre_placeholder' | translate }}"
+                  [(ngModel)]="cliente.nombre_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('nombre_cliente')?.invalid &&
+                    (registroCliente?.get('nombre_cliente')?.dirty ||
+                      registroCliente?.get('nombre_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "nombre" | translate }} {{ "requerido" | translate }}
+                </div>
               </div>
+              <div class="form-group">
+                <label for="apellido_cliente"
+                  >{{ "apellido" | translate }}:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="apellido_cliente"
+                  placeholder="{{ 'apellido_placeholder' | translate }}"
+                  [(ngModel)]="cliente.apellido_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('apellido_cliente')?.invalid &&
+                    (registroCliente?.get('apellido_cliente')?.dirty ||
+                      registroCliente?.get('apellido_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "apellido" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="dni_cliente">{{ "dni" | translate }}:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="dni_cliente"
+                  placeholder="{{ 'dni_placeholder' | translate }}"
+                  [(ngModel)]="cliente.dni_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('dni_cliente')?.invalid &&
+                    (registroCliente?.get('dni_cliente')?.dirty ||
+                      registroCliente?.get('dni_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "dni" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="direccion_cliente"
+                  >{{ "direccion" | translate }}:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="direccion_cliente"
+                  placeholder="{{ 'direccion_placeholder' | translate }}"
+                  [(ngModel)]="cliente.direccion_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('direccion_cliente')?.invalid &&
+                    (registroCliente?.get('direccion_cliente')?.dirty ||
+                      registroCliente?.get('direccion_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "direccion" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="telefono_cliente"
+                  >{{ "telefono" | translate }}:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="telefono_cliente"
+                  placeholder="{{ 'telefono_placeholder' | translate }}"
+                  [(ngModel)]="cliente.telefono_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('telefono_cliente')?.invalid &&
+                    (registroCliente?.get('telefono_cliente')?.dirty ||
+                      registroCliente?.get('telefono_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "telefono" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email_cliente">{{ "email" | translate }}:</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  formControlName="email_cliente"
+                  placeholder="{{ 'email_placeholder' | translate }}"
+                  [(ngModel)]="cliente.email_cliente"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('email_cliente')?.invalid &&
+                    (registroCliente?.get('email_cliente')?.dirty ||
+                      registroCliente?.get('email_cliente')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "email" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="username"
+                  >{{ "nombre_usuario" | translate }}:</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="username"
+                  placeholder="{{ 'usuario_placeholder' | translate }}"
+                  [(ngModel)]="cliente.username"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('username')?.invalid &&
+                    (registroCliente?.get('username')?.dirty ||
+                      registroCliente?.get('username')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "nombre_usuario" | translate }}
+                  {{ "requerido" | translate }}
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="username"
+                  >{{ "contraseña_label" | translate }}:</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  formControlName="password"
+                  placeholder="{{ 'contraseña_placeholder' | translate }}"
+                  [(ngModel)]="cliente.password"
+                />
+                <div
+                  *ngIf="
+                    registroCliente?.get('password')?.invalid &&
+                    (registroCliente?.get('password')?.dirty ||
+                      registroCliente?.get('password')?.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  {{ "contraseña" | translate }} {{ "requerido" | translate }}
+                </div>
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary btn-separator"
+                [disabled]="!formularioValido"
+              >
+                {{ "registrar" | translate }}
+              </button>
+            </form>
           </div>
+        </div>
       </div>
+    </div>
   </div>
+</div>

@@ -1,8 +1,15 @@
 <style>
     .contenidonav {
-    margin-left: 10%;
-    margin-right: 10%;
-}
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .language-selector {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        z-index: 9999;
+    }
 </style>
 
 <nav *ngIf="showNavBar" class="navbar navbar-expand-lg bg-primary">
@@ -16,20 +23,28 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+                    <a class="nav-link" routerLink="/dashboard">{{"inicio"|translate}}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/perfil">Perfil</a>
+                    <a class="nav-link" routerLink="/perfil">{{"perfil"|translate}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/prestamos">{{"prestamos"|translate}}</a>
                 </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <button class="btn btn-danger" (click)="logout()" routerLink="/logout">Logout</button>
+                    <button class="btn btn-danger" (click)="onSalirClick()">{{"salir"|translate}}</button>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
+<div class="language-selector">
+    <button class="btn" (click)="switchLanguage()">
+        <img src="./assets/images/icono_cambiar_idioma.png" alt="">
+    </button>
+</div>
 
 <router-outlet></router-outlet>

@@ -1,0 +1,90 @@
+<style>
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .col-md-12 {
+    text-align: center;
+  }
+</style>
+
+<div class="container">
+  <div class="col-md-12">
+    <div class="card-container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Administrar Clientes</h2>
+        </div>
+        <hr />
+        <div class="card">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>DNI</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cliente of clientes">
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.nombre_cliente }}</td>
+                <td>{{ cliente.apellido_cliente }}</td>
+                <td>{{ cliente.dni_cliente }}</td>
+                <td>{{ cliente.direccion_cliente }}</td>
+                <td>{{ cliente.telefono_cliente }}</td>
+                <td>{{ cliente.email_cliente }}</td>
+                <td>
+                  <button (click)="editarCliente(cliente)">Editar</button>
+                  <button (click)="eliminarCliente(cliente)">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div *ngIf="modoEdicion">
+            <form [formGroup]="formularioCliente" (submit)="guardarCliente()">
+              <div>
+                <label>Nombre:</label>
+                <input type="text" formControlName="nombre_cliente" required>
+              </div>
+              <div>
+                <label>Apellido:</label>
+                <input type="text" formControlName="apellido_cliente" required>
+              </div>
+              <div>
+                <label>DNI:</label>
+                <input type="text" formControlName="dni_cliente" required>
+              </div>
+              <div>
+                <label>Dirección:</label>
+                <input type="text" formControlName="direccion_cliente" required>
+              </div>
+              <div>
+                <label>Teléfono:</label>
+                <input type="text" formControlName="telefono_cliente" required>
+              </div>
+              <div>
+                <label>Email:</label>
+                <input type="text" formControlName="email_cliente" required>
+              </div>
+              <div>
+                <button type="submit">{{ modoEdicion ? 'Guardar' : 'Agregar' }}</button>
+                <button type="button" (click)="cancelarEdicion()">Cancelar</button>
+              </div>
+            </form>
+          </div>
+          <button *ngIf="!modoEdicion" (click)="agregarCliente()">Agregar Cliente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+<style>
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Opcional: ajusta la altura según tus necesidades */
+  }
+  .col-md-12 {
+    text-align: center;
+    /* opcional, para centrar horizontalmente el contenido */
+  }
+</style>
+
+<div class="container">
+  <div class="col-md-12">
+    <div class="card-container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Administrar Evaluaciones Crediticias</h2>
+          <hr />
+        </div>
+        <div class="filter-container">
+          <input
+            type="text"
+            placeholder="Buscar por ID Cliente"
+            [(ngModel)]="searchQuery"
+            (keyup)="applyFilters()"
+          />
+          <select [(ngModel)]="selectedStatus" (change)="applyFilters()">
+            <option value="">Todos</option>
+            <option value="Enviado">Enviado</option>
+            <option value="Aprobado">Aprobado</option>
+            <option value="Rechazado">Rechazado</option>
+          </select>
+        </div>
+        <div class="card">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>ID Cliente</th>
+                <th>Sector Trabajo</th>
+                <th>Monto Préstamo</th>
+                <th>Tipo de Período</th>
+                <th>Pago Disponible</th>
+                <th>Ingresos</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let evaluacion of evaluaciones">
+                <td>{{ evaluacion.id_informacion_cliente }}</td>
+                <td>{{ evaluacion.id_cliente }}</td>
+                <td>{{ evaluacion.sector_trabajo }}</td>
+                <td>{{ evaluacion.monto_prestamo }}</td>
+                <td>{{ evaluacion.tipo_periodo }}</td>
+                <td>{{ evaluacion.pago_disponible }}</td>
+                <td>{{ evaluacion.ingresos }}</td>
+                <td>{{ evaluacion.estado }}</td>
+                <td>
+                  <button (click)="aprobarEvaluacion(evaluacion)">
+                    Aprobar
+                  </button>
+                  <button (click)="rechazarEvaluacion(evaluacion)">
+                    Rechazar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

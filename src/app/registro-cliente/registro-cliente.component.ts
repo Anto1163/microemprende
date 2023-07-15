@@ -3,16 +3,14 @@ import { Cliente } from '../cliente';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
-
 @Component({
   selector: 'app-registro-cliente',
   templateUrl: './registro-cliente.component.html',
-  styleUrls: ['./registro-cliente.component.scss']
+  styleUrls: ['./registro-cliente.component.scss'],
 })
-export class RegistroClienteComponent implements OnInit{
-  
+export class RegistroClienteComponent implements OnInit {
   registroCliente!: FormGroup;
-  
+
   cliente: Cliente = {
     nombre_cliente: '',
     apellido_cliente: '',
@@ -22,10 +20,13 @@ export class RegistroClienteComponent implements OnInit{
     email_cliente: '',
     username: '',
     password: '',
-    'historial_crediticio': 'No lleno'
+    historial_crediticio: 'No lleno',
   };
 
-  constructor(private formBuilder:FormBuilder, private authService:AuthService){ }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.registroCliente = this.formBuilder.group({
@@ -36,7 +37,7 @@ export class RegistroClienteComponent implements OnInit{
       telefono_cliente: ['', Validators.required],
       email_cliente: ['', [Validators.required, Validators.email]],
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
   public get formularioValido(): boolean {
@@ -50,7 +51,8 @@ export class RegistroClienteComponent implements OnInit{
         } else {
           console.log('Inicio de sesión fallido');
         }
-      },(error: any) => {
+      },
+      (error: any) => {
         console.error('Error de inicio de sesión', error);
         console.log(error);
         if (error.status === 404) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,20 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {}
 
   login(): void {
     if (!this.username || !this.password) {
       this.error = true;
-      this.errorMessage = 'Por favor ingrese su usuario y contraseña.';
+      this.translate.get('error_login1').subscribe((translation: string) => {
+        this.errorMessage = translation;
+      });
       return;
     }
     this.authService.login(this.username, this.password).then(
@@ -33,18 +40,28 @@ export class LoginComponent implements OnInit {
         } else {
           console.log('Inicio de sesión fallido');
           this.error = true;
-          this.errorMessage =
-            'Usuario o contraseña incorrectos. Por favor inténtelo de nuevo.';
+          this.translate
+            .get('error_login2')
+            .subscribe((translation: string) => {
+              this.errorMessage = translation;
+            });
         }
       },
       (error: any) => {
         console.error('Error de inicio de sesión', error);
         console.log(error);
         if (error.status === 404) {
-          this.errorMessage = 'El usuario no existe.';
+          this.translate
+            .get('error_login3')
+            .subscribe((translation: string) => {
+              this.errorMessage = translation;
+            });
         } else {
-          this.errorMessage =
-            'Error de inicio de sesión. Por favor inténtelo de nuevo.';
+          this.translate
+            .get('error_login4')
+            .subscribe((translation: string) => {
+              this.errorMessage = translation;
+            });
         }
         this.error = true;
       }

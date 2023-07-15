@@ -1,0 +1,84 @@
+<style>
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Opcional: ajusta la altura según tus necesidades */
+  }
+
+  .col-md-12 {
+    text-align: center;
+    /* opcional, para centrar horizontalmente el contenido */
+  }
+
+  .table-container {
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .table-wrapper {
+    min-width: 100%;
+    overflow: hidden;
+  }
+</style>
+
+<div class="container">
+  <div class="col-md-12">
+    <div class="card-container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Administrar Préstamos</h2>
+        </div>
+        <hr />
+        <button (click)="agregarPrestamo()">Agregar Préstamo</button>
+
+        <div class="table-container">
+          <div class="card">
+            <div class="table-responsive">
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>ID Cliente</th>
+                      <th>Monto</th>
+                      <th>Interés</th>
+                      <th>Fecha del préstamo</th>
+                      <th>Fecha de vencimiento</th>
+                      <th>Tipo de pago</th>
+                      <th>Cuotas pagadas</th>
+                      <th>Cuotas pendientes</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let prestamo of prestamos">
+                      <td>{{ prestamo.id }}</td>
+                      <td>{{ prestamo.id_cliente }}</td>
+                      <td>{{ prestamo.monto_prestamo }}</td>
+                      <td>{{ prestamo.interes }}</td>
+                      <td>{{ prestamo.fecha_prestamo | date }}</td>
+                      <td>{{ prestamo.fecha_vencimiento | date }}</td>
+                      <td>{{ prestamo.tipo_pago }}</td>
+                      <td>{{ prestamo.cuotas_pagadas }}</td>
+                      <td>{{ prestamo.cuotas_pendientes }}</td>
+                      <td>
+                        <button (click)="editarPrestamo(prestamo)">
+                          Editar
+                        </button>
+                        <button (click)="eliminarPrestamo(prestamo)">
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

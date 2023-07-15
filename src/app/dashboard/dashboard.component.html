@@ -36,65 +36,74 @@
   .contenedor {
     display: flex;
     justify-content: center;
-
     align-items: center;
     gap: 10px;
     flex-direction: column;
+    min-height: 100%;
   }
 
   .elemento {
-    width: 30%;
-    /*ancho deseado del elemento*/
+    width: 40%;
+    /* ancho deseado del elemento */
     max-width: 300px;
-    /*ancho máximo para pantallas grandes*/
+    /* ancho máximo para pantallas grandes */
     min-width: 200px;
     text-align: center;
   }
-  section{
+
+  section {
     min-height: 350px;
+    flex-grow: 1;
   }
+
   .col-md-12 {
-  text-align: center; /*opcional, para centrar horizontalmente el contenido*/
+    text-align: center;
+    /* opcional, para centrar horizontalmente el contenido */
+  }
+
+  img{
+    max-height: 130px;
   }
 </style>
 
+<app-ventana-infocliente></app-ventana-infocliente>
 
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Bienvenido, {{user.cliente.nombre}} {{user.cliente.apellido}}!</h1>
+      <h1>{{ 'bienvenido' | translate }}, {{ user.cliente.nombre }} {{ user.cliente.apellido }}!</h1>
     </div>
   </div>
+  <hr>
   <div class="row">
     <div class="col-sm-6">
       <section class="resumen">
         <div id="DivPrestamos" *ngIf="hayPrestamos; else noHayPrestamos">
-          <h4>Resumen del último préstamo:</h4>
-          <p>Total del prestamo: {{prestamos.prestamos[0].monto_prestamo}}</p>
+          <h4>{{ 'resumen_label' | translate }}:</h4>
+          <p>{{ 'prestamo_label' | translate }}: {{ prestamoMayor.monto_prestamo }}</p>
           <div class="contenedor">
             <div class="elemento">
-              <canvas baseChart class="chart" [data]="doughnutChartData" [type]="doughnutChartType">
-              </canvas>
+              <canvas baseChart class="chart" [data]="doughnutChartData" [type]="doughnutChartType"></canvas>
             </div>
+            <button class="btn btn-primary" routerLink="/prestamos">{{ 'prestamos' | translate }}</button>
           </div>
         </div>
       </section>
     </div>
     <div class="col-sm-6">
       <section class="resumen">
-          <h4>Evaluacion crediticia:</h4>
-          
-          <p>Si estás buscando financiamiento para tu negocio, una evaluación crediticia podría ser una excelente opción para ti.</p>
-          <div class="contenedor">
-              <p>Inicia tu evaluacion <a routerLink="/evaluacion-crediticia">crediticia aquí.</a></p>
-          </div>
-        
+        <h4>{{ 'evaluacion_label' | translate }}:</h4>
+        <p>{{ 'descripcion_evaluacion_label' | translate }}</p>
+        <div class="contenedor">
+          <img src=".\assets\images\evaluacion-crediticia.jpg" class="img-fluid" alt="">
+          <p>{{ 'inicia_evaluacion' | translate }} {{ 'link_evaluacion_label' | translate }}</p>
+          <button class="btn btn-primary" (click)="handleButtonClick()">{{ 'evaluacion_label' | translate }}</button>
+        </div>
       </section>
     </div>
   </div>
-
 </div>
 
 <ng-template #noHayPrestamos>
-  <p>No se encontraron préstamos registrados</p>
+  <p>{{ 'no_prestamos_label' | translate }}</p>
 </ng-template>
